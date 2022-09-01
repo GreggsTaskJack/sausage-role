@@ -18,24 +18,24 @@ class GreggsMenu {
 
 @JsonSerializable()
 class GreggsMenuItem {
-  final String? articleCode;
-  final String? shopCode;
-  final DateTime? availableFrom;
-  final DateTime? availableUntil;
-  final double? eatOutPrice;
-  final double? eatInPrice;
-  final String? articleName;
-  final List<String>? dayParts;
-  final String? internationalDescription;
-  final String? customerDescription;
-  final String? imageUrl;
-  final String? thumbnailUrl;
+  final String articleCode;
+  final String shopCode;
+  final DateTime availableFrom;
+  final DateTime availableUntil;
+  final double eatOutPrice;
+  final double eatInPrice;
+  final String articleName;
+  final List<String> dayParts;
+  final String internationalDescription;
+  final String customerDescription;
+  final String imageUri;
+  final String thumbnailUri;
 
   factory GreggsMenuItem.fromJson(Map<String, dynamic> json) =>
       _$GreggsMenuItemFromJson(json);
 
   GreggsMenuItem(
-      {this.articleCode,
+      this.articleCode,
       this.shopCode,
       this.availableFrom,
       this.availableUntil,
@@ -45,23 +45,10 @@ class GreggsMenuItem {
       this.dayParts,
       this.internationalDescription,
       this.customerDescription,
-      this.imageUrl,
-      this.thumbnailUrl});
+      this.imageUri,
+      this.thumbnailUri);
 
   Map<String, dynamic> toJson() => _$GreggsMenuItemToJson(this);
 
-  Image? get image => (imageUrl != null) ? Image.network(imageUrl!) : null;
-
-  // List<String?> get addressList => [
-  //       homeAddressLine1,
-  //       homeAddressLine2,
-  //       homeAddressLine3,
-  //       homeAddressLine4,
-  //       homeAddressLine5,
-  //       homeAddressPostCode
-  //     ];
-  //
-  // String get address => addressList
-  //     .where((element) => (element != null && element.isNotEmpty))
-  //     .join(', ');
+  Image? get image => Image.network(imageUri);
 }

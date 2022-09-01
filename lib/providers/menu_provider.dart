@@ -7,8 +7,16 @@ import 'package:sausage_programming_role/models/greggs_menu_item.dart';
 class MenuProvider extends ChangeNotifier {
   GreggsMenu? menu;
 
+  List<GreggsMenuItem> cart = [];
+
   MenuProvider() {
     setup();
+  }
+
+  double get totalPrice => cart.fold(0, (previousValue, element) => previousValue + element.eatOutPrice);
+
+  int getAmountOfItem(GreggsMenuItem item) {
+    return cart.where((cartItem) => cartItem == item).length;
   }
 
   void setup() async {
@@ -16,9 +24,17 @@ class MenuProvider extends ChangeNotifier {
     final data = await json.decode(response);
     menu = GreggsMenu.fromJson(data);
     notifyListeners();
-    // _gamesStorage = await Hive.openBox<Game>('games');
-    // _expectedROIStorage = await Hive.openBox<double>('expected-roi');
-    // _monthlyBuyInTargetStorage = await Hive.openBox<Money>('monthly-buy-in-target');
-    // refreshModel();
+  }
+
+  void addToCart(GreggsMenuItem item) {
+    cart.add(item);
+    notifyListeners();
+  }
+
+  void removeFromCart(GreggsMenuItem item) {
+    if (cart.contains(item)) {
+      cart.remove(item);
+    }
+    notifyListeners();
   }
 }

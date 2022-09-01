@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sausage_programming_role/providers/menu_provider.dart';
-import 'package:sausage_programming_role/widgets/menu_item_card.dart';
+import 'package:sausage_programming_role/screens/basket_screen.dart';
+import 'package:sausage_programming_role/screens/item_screen.dart';
+import 'package:sausage_programming_role/widgets/app_bar.dart';
+import 'package:sausage_programming_role/widgets/menu_item_widget.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -13,37 +16,44 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Greggs", style: TextStyle(color: Theme.of(context).secondaryHeaderColor)),
-      ),
-      body: Container(
-        color: Theme.of(context).secondaryHeaderColor,
-        child: Center(
-            child: ChangeNotifierProvider<MenuProvider>(
-              create: (_) => MenuProvider(),
-              child: Consumer<MenuProvider>(
-                  builder: (context, menuProvider, _) =>
-                      ListView(
-                        children: menuProvider.menu?.items.map((e) => MenuItemCard(item: e)).toList() ?? [],
-                      )
-                  //     Column(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: <Widget>[
-                  //     Text(
-                  //       menuProvider.menu?.items.first.articleName ?? "nope",
-                  //       style: Theme.of(context).textTheme.headline4,
-                  //     ),
-                  //   ],
-                  // )
-              ),
-            )),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+    return ChangeNotifierProvider<MenuProvider>(
+        create: (_) => MenuProvider(),
+        child: Consumer<MenuProvider>(
+            builder: (context, menuProvider, _) => Scaffold(
+                  appBar: const BrandedAppBar(title: 'Greggs'),
+                  body: Center(
+                      child: ListView.separated(
+                          itemCount: menuProvider.menu?.items.length ?? 0,
+                          separatorBuilder: (BuildContext context, int index) =>
+                              const Divider(
+                                  thickness: 1, color: Colors.black54),
+                          itemBuilder: (BuildContext context, int index) {
+                            final item = menuProvider.menu!.items[index];
+                            return MenuItemWidget(
+                                item: item,
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        ChangeNotifierProvider<
+                                                MenuProvider>.value(
+                                            value: menuProvider,
+                                            child: ItemScreen(
+                                              item: item,
+                                            )),
+                                  ));
+                                });
+                          })),
+                  floatingActionButton: FloatingActionButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            ChangeNotifierProvider<MenuProvider>.value(
+                                value: menuProvider, child: BasketScreen()),
+                      ));
+                    },
+                    tooltip: 'Increment',
+                    child: const Icon(Icons.shopping_cart_outlined, size: 30),
+                  ),
+                )));
   }
 }

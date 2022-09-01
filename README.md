@@ -1,16 +1,10 @@
-# sausage_programming_role
+Non-exhaustive list of things that should be refactored for production code:
+- Proper routing
+  - Using Navigator.pop isn't scalable
+- Separation into view model and view layers
+- Better scoping of providers (goes hand-in-hand with navigation)
+- Money should not be stored or manipulated as double
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The following simplifying assumptions were made despite the fact that they would not be reasonable in real-world code
+- It was always eat out and that 
+- None of the API fields will ever return null

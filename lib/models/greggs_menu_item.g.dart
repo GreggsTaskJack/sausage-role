@@ -19,38 +19,32 @@ Map<String, dynamic> _$GreggsMenuToJson(GreggsMenu instance) =>
 
 GreggsMenuItem _$GreggsMenuItemFromJson(Map<String, dynamic> json) =>
     GreggsMenuItem(
-      articleCode: json['articleCode'] as String?,
-      shopCode: json['shopCode'] as String?,
-      availableFrom: json['availableFrom'] == null
-          ? null
-          : DateTime.parse(json['availableFrom'] as String),
-      availableUntil: json['availableUntil'] == null
-          ? null
-          : DateTime.parse(json['availableUntil'] as String),
-      eatOutPrice: (json['eatOutPrice'] as num?)?.toDouble(),
-      eatInPrice: (json['eatInPrice'] as num?)?.toDouble(),
-      articleName: json['articleName'] as String?,
-      dayParts: (json['dayParts'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
-      internationalDescription: json['internationalDescription'] as String?,
-      customerDescription: json['customerDescription'] as String?,
-      imageUrl: json['imageUrl'] as String?,
-      thumbnailUrl: json['thumbnailUrl'] as String?,
+      json['articleCode'] as String,
+      json['shopCode'] as String,
+      DateTime.parse(json['availableFrom'] as String),
+      DateTime.parse(json['availableUntil'] as String),
+      (json['eatOutPrice'] as num).toDouble(),
+      (json['eatInPrice'] as num).toDouble(),
+      json['articleName'] as String,
+      (json['dayParts'] as List<dynamic>).map((e) => e as String).toList(),
+      json['internalDescription'] as String,
+      json['customerDescription'] as String,
+      json['imageUri'] as String,
+      json['thumbnailUri'] as String,
     );
 
 Map<String, dynamic> _$GreggsMenuItemToJson(GreggsMenuItem instance) =>
     <String, dynamic>{
       'articleCode': instance.articleCode,
       'shopCode': instance.shopCode,
-      'availableFrom': instance.availableFrom?.toIso8601String(),
-      'availableUntil': instance.availableUntil?.toIso8601String(),
+      'availableFrom': instance.availableFrom.toIso8601String(),
+      'availableUntil': instance.availableUntil.toIso8601String(),
       'eatOutPrice': instance.eatOutPrice,
       'eatInPrice': instance.eatInPrice,
       'articleName': instance.articleName,
       'dayParts': instance.dayParts,
       'internationalDescription': instance.internationalDescription,
       'customerDescription': instance.customerDescription,
-      'imageUrl': instance.imageUrl,
-      'thumbnailUrl': instance.thumbnailUrl,
+      'imageUri': instance.imageUri,
+      'thumbnailUri': instance.thumbnailUri,
     };
