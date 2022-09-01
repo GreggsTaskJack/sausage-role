@@ -16,44 +16,35 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<MenuProvider>(
-        create: (_) => MenuProvider(),
-        child: Consumer<MenuProvider>(
-            builder: (context, menuProvider, _) => Scaffold(
-                  appBar: const BrandedAppBar(title: 'Greggs'),
-                  body: Center(
-                      child: ListView.separated(
-                          itemCount: menuProvider.menu?.items.length ?? 0,
-                          separatorBuilder: (BuildContext context, int index) =>
-                              const Divider(
-                                  thickness: 1, color: Colors.black54),
-                          itemBuilder: (BuildContext context, int index) {
-                            final item = menuProvider.menu!.items[index];
-                            return MenuItemWidget(
-                                item: item,
-                                onPressed: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        ChangeNotifierProvider<
-                                                MenuProvider>.value(
-                                            value: menuProvider,
-                                            child: ItemScreen(
-                                              item: item,
-                                            )),
-                                  ));
-                                });
-                          })),
-                  floatingActionButton: FloatingActionButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            ChangeNotifierProvider<MenuProvider>.value(
-                                value: menuProvider, child: BasketScreen()),
-                      ));
-                    },
-                    tooltip: 'Increment',
-                    child: const Icon(Icons.shopping_cart_outlined, size: 30),
-                  ),
-                )));
+    return Consumer<MenuProvider>(
+        builder: (context, menuProvider, _) => Scaffold(
+              appBar: const BrandedAppBar(title: 'Greggs'),
+              body: Center(
+                  child: ListView.separated(
+                      itemCount: menuProvider.menu?.items.length ?? 0,
+                      separatorBuilder: (BuildContext context, int index) =>
+                          const Divider(thickness: 1, color: Colors.black54),
+                      itemBuilder: (BuildContext context, int index) {
+                        final item = menuProvider.menu!.items[index];
+                        return MenuItemWidget(
+                            item: item,
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => ItemScreen(
+                                  item: item,
+                                ),
+                              ));
+                            });
+                      })),
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const BasketScreen(),
+                  ));
+                },
+                tooltip: 'Increment',
+                child: const Icon(Icons.shopping_cart_outlined, size: 30),
+              ),
+            ));
   }
 }

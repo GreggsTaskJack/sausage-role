@@ -13,11 +13,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Sausage Programming Role',
-      theme: ThemeData(
-          primarySwatch: Colors.indigo, secondaryHeaderColor: Colors.amber),
-      home: const MyHomePage(title: 'Sausage Programming Role'),
+    return ChangeNotifierProvider<MenuProvider>(
+      create: (_) => MenuProvider(),
+      child: MaterialApp(
+          title: 'Sausage Programming Role',
+          theme: ThemeData(
+              primarySwatch: Colors.indigo, secondaryHeaderColor: Colors.amber),
+          home: const MyHomePage(title: 'Sausage Programming Role')),
     );
   }
 }
