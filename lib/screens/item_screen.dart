@@ -22,8 +22,12 @@ class ItemScreen extends StatelessWidget {
                       Text(item.customerDescription),
                       Row(
                         children: [
+                          /// This button code should be made more DRY.
+                          /// Realistically, would probably be part of a
+                          /// widget library
                           Expanded(
                             child: ElevatedButton(
+                                key: const ValueKey('back-button'),
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
@@ -32,6 +36,7 @@ class ItemScreen extends StatelessWidget {
                           const SizedBox(width: 12),
                           Expanded(
                               child: ElevatedButton(
+                                  key: const ValueKey('add-to-cart-button'),
                                   onPressed: () {
                                     menuProvider.addToCart(item);
                                     Navigator.of(context).pop();

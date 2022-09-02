@@ -27,6 +27,7 @@ class _MainScreenState extends State<MainScreen> {
                       itemBuilder: (BuildContext context, int index) {
                         final item = menuProvider.menu!.items[index];
                         return MenuItemWidget(
+                          key: ValueKey('${item.articleName}-menu-item-widget'),
                             item: item,
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
@@ -37,6 +38,7 @@ class _MainScreenState extends State<MainScreen> {
                             });
                       })),
               floatingActionButton: FloatingActionButton(
+                key: const ValueKey('basket-button'),
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const BasketScreen(),
